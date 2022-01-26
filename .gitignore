@@ -1,0 +1,12 @@
+node_modules
+
+#Hardhat files
+cache
+artifacts
+factories
+typechain
+typechain-types
+
+.env
+gas-*
+*.pdf
