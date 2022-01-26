@@ -1,8 +1,8 @@
 # LedgerHedger Contracts
 
-This is the implementations of the contracts as descibed in the paper [ LedgerHedger: Gas Reservation for Smart-Contract Security](https://eprint.iacr.org/2022/056.pdf).
+This is the implementations of the contracts as described in the paper [LedgerHedger: Gas Reservation for Smart-Contract Security](https://eprint.iacr.org/2022/056.pdf).
 
-The contract `LedgerHedger` imlements a basic Smart Contract Wallet, and supports [Meta-Transactions](https://medium.com/@austin_48503/ethereum-meta-transactions-90ccf0859e84) as a way to allow anyone to pay transaction fees.
+The contract `LedgerHedger` implements a basic Smart Contract Wallet, and supports [Meta-Transactions](https://medium.com/@austin_48503/ethereum-meta-transactions-90ccf0859e84) as a way to allow anyone to pay transaction fees.
 
 Two notable functions in our implementation are `execute` and `exhust`.
 Function `execute` receives a meta-transaction, verifies the conditions, and the calls the `verifyAndExecute` function, which executes the meta-transaction.
@@ -18,6 +18,8 @@ In our implementation, `gasCostOfLoop` is `117` gas, which is negligible compare
 ### Pre Requisites
 
 Before running any command, make sure to install dependencies:
+
+Copy the provided `.env.example` file to `.env` and replace the variables accordingly.
 
 ```sh
 $ yarn install
@@ -39,7 +41,26 @@ Run the Mocha tests:
 $ yarn test
 ```
 
+\*Notice that the `exhaust` test might take a while. Optionally add `skip` on this test.
+
 ## Deploying the contracts
+
+For convenience, a set of scripts for deploying and executing the functionality on chain is provided.
+Notice you need to replace environment variables in `.env` accordingly.
+
+`./scripts/deploy_regular_contract` deploys an Ethereum contract, e.g. the test token contract;
+
+`./scripts/deploy_wallet_contract.ts` deploys a wallet contract owned by the deployer's public key.
+
+`./scripts/init_hedge_contract.ts` Initiates a new hedge contract on the existing wallet. Notice you need to set the parameters in the script to fit your needs.
+
+`./scripts/register_hedge_contract.ts` registers the executor of the call as the `seller` of the hedging contract
+
+`./scripts/exhaust_hedge_contract.ts` Signs the call and broadcasts the transaction. The call will be executed if all requirements are met
+
+`./scripts/exhaust_hedge_contract.ts` Calls the exhaust function and burns gas to remove the seller's collateral.
+
+`./scripts/refund_hedge_contract.ts` Refunds the user with the payment if no seller registered for the contract.
 
 ## Example of deployed contract and transactions
 
