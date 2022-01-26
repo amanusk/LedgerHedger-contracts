@@ -28,7 +28,7 @@ async function main() {
     ownerSigningWallet,
   );
 
-  var jsonFile = path.resolve(__dirname, "../artifacts/contracts/GasFuture.sol/GasFuture.json");
+  var jsonFile = path.resolve(__dirname, "../artifacts/contracts/LedgerHedger.sol/LedgerHedger.json");
   var parsed = JSON.parse(fs.readFileSync(jsonFile).toString());
 
   let bytecode = parsed.bytecode;

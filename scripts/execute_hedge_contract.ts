@@ -1,7 +1,7 @@
 import { ethers, utils, Contract, providers, Wallet, constants, BigNumber } from "ethers";
 import * as dotenv from "dotenv";
 
-import { GasFuture__factory, TestToken__factory } from "../typechain-types";
+import { LedgerHedger__factory, TestToken__factory } from "../typechain-types";
 
 dotenv.config();
 
@@ -40,7 +40,7 @@ const ownerSigningWallet = new Wallet(PRIVATE_KEY_WALLET_OWNER, provider);
 async function main() {
   console.log("Owner Wallet Address: " + (await sellerWallet.getAddress()));
 
-  let walletContract = GasFuture__factory.connect(WALLET_CONTRACT_ADDRESS, sellerWallet);
+  let walletContract = LedgerHedger__factory.connect(WALLET_CONTRACT_ADDRESS, sellerWallet);
 
   let buyer = await walletContract.buyer();
   console.log("Buyer", buyer);
@@ -94,7 +94,7 @@ async function main() {
   console.log("Owner", ownerSigningWallet.address);
   console.log("Sig", sig);
 
-  walletContract = GasFuture__factory.connect(walletContract.address, sellerWallet);
+  walletContract = LedgerHedger__factory.connect(walletContract.address, sellerWallet);
 
   let rec = await walletContract.execute({ nonce: walletNonce, to: to, value: value, callData: callData }, sig, {
     gasLimit: 4000000,
