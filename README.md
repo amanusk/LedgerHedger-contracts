@@ -4,9 +4,10 @@ This is the implementations of the contracts as described in the paper [LedgerHe
 
 The contract `LedgerHedger` implements a basic Smart Contract Wallet, and supports [Meta-Transactions](https://medium.com/@austin_48503/ethereum-meta-transactions-90ccf0859e84) as a way to allow anyone to pay transaction fees.
 
-Two notable functions in our implementation are `execute` and `exhust`.
+Two notable functions in our implementation are `execute` and `exhaust`.
 Function `execute` receives a meta-transaction, verifies the conditions, and the calls the `verifyAndExecute` function, which executes the meta-transaction.
 It is up to the creator of the meta-transaction to make sure it performs the desired operation, the wallet nonce will be increased regardless of the success of the meta-transaction, as long as enough gas is provided for execution.
+Function `exectue` fulfills the functionality of function `Apply` in the paper pseudo code. The naming was replaces since `apply` is a keyword in Solidity.
 
 Function `exhaust` works by running a loop the number of times needed to exhaust the gas in `gasHedged`.
 The number of iterations the loop performs is calculated as `(gasHedged - constant) / gasCostOfLoop` where the constant is the gas required to calculate the number of iterations and the call to the inner function.
